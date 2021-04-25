@@ -1,2 +1,1 @@
-console.log("EDSADA")
-// alert('Hello!');
+import './demo';
