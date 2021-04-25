@@ -31,7 +31,7 @@ const sayHi = (person: Human): string => {
   return `Hello ${person.name}, you are a ${person.age} year old female`;
 };
 
-console.log('=== Interface ===');
+console.log('=== Interface demo ===');
 console.log(sayHi(me));
 console.log(sayHi(laura));
 console.log(sayHi(bob));
