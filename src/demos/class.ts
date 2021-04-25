@@ -31,7 +31,7 @@ const sayHi = (person: Human): string => {
   return `Hello ${person.name}, you are a ${person.getAge()} year old female`;
 };
 
-console.log('=== Class demo ===');
+console.log('\n=== Class demo ===');
 console.log(sayHi(me));
 console.log(sayHi(laura));
 console.log(sayHi(bob));

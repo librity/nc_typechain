@@ -44,6 +44,14 @@ export default class Block {
     this.timestamp = timestamp;
   }
 
+  calculateHash = () =>
+    Block.calculateBlockHash(
+      this.index,
+      this.previousHash,
+      this.timestamp,
+      this.data,
+    );
+
   buildNext = (data: string): Block => {
     const nextIndex: number = this.index + 1;
     const nextTimestamp: number = Block.newTimestamp();
@@ -62,5 +70,24 @@ export default class Block {
       nextTimestamp,
     );
     return nextBlock;
+  };
+
+  hasValidStructure = (): boolean => {
+    if (typeof this.index !== 'number') return false;
+    if (typeof this.hash !== 'string') return false;
+    if (typeof this.previousHash !== 'string') return false;
+    if (typeof this.data !== 'string') return false;
+    if (typeof this.timestamp !== 'number') return false;
+
+    return true;
+  };
+
+  isValid = (previous: Block): boolean => {
+    if (!this.hasValidStructure) return false;
+    if (previous.index + 1 !== this.index) return false;
+    if (previous.hash !== this.previousHash) return false;
+    if (this.hash !== this.calculateHash()) return false;
+
+    return true;
   };
 }

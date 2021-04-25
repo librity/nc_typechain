@@ -14,7 +14,7 @@ const sayHi = (name: string, age: number, male?: boolean): string => {
 // sayHi(name, 'bad');
 // sayHi(name, age, 'male');
 
-console.log("=== Primitives demo ===");
+console.log('\n=== Primitives demo ===');
 console.log(sayHi(name, age, male));
 console.log(sayHi(name, age, false));
 console.log(sayHi(name, age));

@@ -11,18 +11,21 @@ export default class BlockChain {
   blockCount = (): number => this.chain.length;
   lastBlock = (): Block => this.chain[this.chain.length - 1];
 
-  private nextBlock = (data: string): Block => {
+  buildNext = (data: string): Block => {
     const previous: Block = this.lastBlock();
 
     return previous.buildNext(data);
   };
 
-  private saveNext = (next: Block) => {
+  saveNext = (next: Block) => {
+    const isValid = next.isValid(this.lastBlock());
+    if (!isValid) throw new Error("Next block isn't valid");
+
     this.chain.push(next);
   };
 
   createNext = (data: string) => {
-    const next = this.nextBlock(data);
+    const next = this.buildNext(data);
     this.saveNext(next);
   };
 }

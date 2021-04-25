@@ -5,7 +5,6 @@
 - [About](#about)
 - [Installation](#installation)
 - [Running the app](#running)
-- [Usage](#usage)
 - [License](#license)
 - [Libs](#libs)
 - [Docs](#docs)
@@ -13,10 +12,10 @@
 
 ## About <a name = "about"></a>
 
-A movies API made with NestJS.
+A blockchain implementation in Typescript.
 
 - [Take the course too!](https://nomadcoders.co/typescript-for-beginners/lobby)
-- [Certificate of Completion]()
+- [Certificate of Completion](https://nomadcoders.co/certs/197b4676-be6b-49d1-a6c8-763edc90bf2e)
 
 ## Installation <a name = "installation"></a>
 
@@ -34,11 +33,9 @@ $ yarn start
 $ yarn watch
 ```
 
-## Usage <a name = "usage"></a>
-
 ## License <a name = "license"></a>
 
-Nest is [MIT licensed](LICENSE).
+Tyepchain is [MIT licensed](LICENSE).
 
 ## Libs <a name = "libs"></a>
 
