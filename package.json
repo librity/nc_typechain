@@ -4,11 +4,15 @@
   "description": "Nomad Coders - Blockchain implementation in Typescript.",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "prestart": "yarn tsc",
+    "watch": "yarn tsc-watch --onSuccess \"node dist/index.js\""
+  },
   "dependencies": {
     "typescript": "^4.2.4"
   },
-  "scripts": {
-    "start": "node dist/index.js",
-    "prestart": "yarn tsc"
+  "devDependencies": {
+    "tsc-watch": "^4.2.9"
   }
 }
