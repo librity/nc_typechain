@@ -44,9 +44,13 @@ Nest is [MIT licensed](LICENSE).
 
 - https://github.com/Microsoft/TypeScript
 - https://github.com/gilamran/tsc-watch
+- https://github.com/brix/crypto-js
+- https://openbase.com/js/@types/crypto-js
 
 ## Docs <a name = "docs"></a>
 
 - https://www.typescriptlang.org/docs/
 
 ## Resources <a name = "resources"></a>
+
+- https://learnersbucket.com/examples/array/how-to-get-the-last-element-of-the-array-in-javascript/
