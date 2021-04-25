@@ -1,3 +1,4 @@
+// Interfaces don't end up in Javascript
 interface Human {
   name: string;
   age: number;
@@ -10,13 +11,13 @@ const me = {
   male: true,
 };
 
-const female = {
+const laura = {
   name: 'Laura',
   age: 17,
   male: false,
 };
 
-const entity = {
+const bob = {
   name: 'Bob',
   age: +'70',
 };
@@ -30,9 +31,9 @@ const sayHi = (person: Human): string => {
   return `Hello ${person.name}, you are a ${person.age} year old female`;
 };
 
-console.log("=== Interface ===");
+console.log('=== Interface ===');
 console.log(sayHi(me));
-console.log(sayHi(female));
-console.log(sayHi(entity));
+console.log(sayHi(laura));
+console.log(sayHi(bob));
 
 export {};
