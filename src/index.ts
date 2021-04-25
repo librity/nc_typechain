@@ -1,22 +1,22 @@
-import './primitives_demo';
-import './interface_demo';
-import './class_demo';
+import './demos/primitives';
+import './demos/interface';
+import './demos/class';
 
-import Block from './Block';
-import BlockChain from './BlockChain';
+import BlockChain from './classes/BlockChain';
 
-const genesisBlock: Block = new Block(
-  0,
-  '349031023902131011',
-  '',
-  "FIRST",
-  0,
-);
-
-const blockChain = new BlockChain(genesisBlock);
+const blockChain = new BlockChain();
 
 console.log('=== Block chain ===');
-console.log(blockChain);
 console.log(blockChain.getChain());
 console.log(blockChain.blockCount());
 console.log(blockChain.lastBlock());
+
+blockChain.createNext('Name: John Doe, SSN: 000-00-0000');
+console.log(blockChain.lastBlock());
+
+blockChain.createNext(
+  'transaction: from Wallet 12u90inoh1ei, 200 USD, to Wallet 3i2091e1njid',
+);
+console.log(blockChain.lastBlock());
+console.log(blockChain.blockCount());
+console.log(blockChain.getChain());
