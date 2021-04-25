@@ -6,5 +6,9 @@
   "license": "MIT",
   "dependencies": {
     "typescript": "^4.2.4"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "prestart": "yarn tsc"
   }
 }

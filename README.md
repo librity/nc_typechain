@@ -27,7 +27,8 @@ $ npm install
 ## Running the app <a name = "running"></a>
 
 ```bash
-
+# Transpile and run
+$ yarn start
 ```
 
 ## Usage <a name = "usage"></a>
