@@ -27,15 +27,15 @@ $ npm install
 
 ```bash
 # Transpile and run
-$ yarn start
+$ npm run start
 
 # Transpile and run on watch mode
-$ yarn watch
+$ npm run watch
 ```
 
 ## License <a name = "license"></a>
 
-Tyepchain is [MIT licensed](LICENSE).
+Typechain is [MIT licensed](LICENSE).
 
 ## Libs <a name = "libs"></a>
 

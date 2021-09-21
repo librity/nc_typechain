@@ -1,93 +1,88 @@
-import * as CryptoJS from 'crypto-js';
+import Crypto from '../utils/Crypto'
+import BlockHeader from './BlockHeader'
+
+const BASE_DIFFICULTY = 2
 
 export default class Block {
-  public index: number;
-  public hash: string;
-  public previousHash: string;
-  public data: string;
-  public timestamp: number;
-
-  private static genesisSecret = CryptoJS.SHA256('YOUR SECRET HERE').toString();
-
-  static newTimestamp = (): number => Math.round(new Date().getTime() / 1000);
+  public header: BlockHeader
+  public index: number
+  public hash: string
+  public data: string
 
   static buildGenesis = (): Block => {
-    const index = 0;
-    const previousHash = Block.genesisSecret;
-    const data = '';
-    const timestamp = Block.newTimestamp();
-    const hash = Block.calculateBlockHash(index, previousHash, timestamp, data);
+    const index = 0
+    const previousHash = ''
+    const data = 'GENESIS BLOCK'
 
-    const genesis = new Block(index, hash, previousHash, data, timestamp);
-    return genesis;
-  };
-
-  static calculateBlockHash = (
-    index: number,
-    previousHash: string,
-    timestamp: number,
-    data: string,
-  ): string =>
-    CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+    const genesis = new Block(index, previousHash, data, BASE_DIFFICULTY)
+    genesis.mine()
+    return genesis
+  }
 
   private constructor(
     index: number,
-    hash: string,
     previousHash: string,
     data: string,
-    timestamp: number,
+    difficulty: number,
   ) {
-    this.index = index;
-    this.hash = hash;
-    this.previousHash = previousHash;
-    this.data = data;
-    this.timestamp = timestamp;
+    this.index = index
+    this.data = data
+
+    this.header = new BlockHeader(previousHash, this.hashData(), difficulty)
+    this.setHash()
   }
 
-  calculateHash = () =>
-    Block.calculateBlockHash(
-      this.index,
-      this.previousHash,
-      this.timestamp,
-      this.data,
-    );
+  hashHeader = (): string => this.header.hash()
+  setHash = () => (this.hash = this.hashHeader())
+
+  getPreviousHash = (): string => this.header.previousHash
+  getDataHash = (): string => this.header.dataHash
+  getTimestamp = (): number => this.header.timestamp
+  getNonce = (): number => this.header.nonce
+
+  getDifficulty = (): number => this.header.difficulty
+  setDifficulty = (newDifficulty: number) =>
+    (this.header.difficulty = newDifficulty)
+
+  hashData = (): string => Crypto.hashString(this.data)
 
   buildNext = (data: string): Block => {
-    const nextIndex: number = this.index + 1;
-    const nextTimestamp: number = Block.newTimestamp();
-    const nextHash: string = Block.calculateBlockHash(
-      nextIndex,
-      this.hash,
-      nextTimestamp,
-      data,
-    );
+    const nextIndex: number = this.index + 1
 
     const nextBlock = new Block(
       nextIndex,
-      nextHash,
       this.hash,
       data,
-      nextTimestamp,
-    );
-    return nextBlock;
-  };
+      this.getDifficulty(),
+    )
+    return nextBlock
+  }
 
-  hasValidStructure = (): boolean => {
-    if (typeof this.index !== 'number') return false;
-    if (typeof this.hash !== 'string') return false;
-    if (typeof this.previousHash !== 'string') return false;
-    if (typeof this.data !== 'string') return false;
-    if (typeof this.timestamp !== 'number') return false;
+  mine = () => {
+    while (true) {
+      if (this.satisfiesDifficulty()) break
 
-    return true;
-  };
+      this.header.increaseNonce()
+      this.setHash()
+    }
+  }
+
+  satisfiesDifficulty = (): boolean => {
+    const difficulty = this.getDifficulty()
+    const expectedZeroes = '0'.repeat(difficulty)
+    const successfullyMined = this.hash.startsWith(expectedZeroes)
+    if (!successfullyMined) return false
+
+    return true
+  }
 
   isValid = (previous: Block): boolean => {
-    if (!this.hasValidStructure) return false;
-    if (previous.index + 1 !== this.index) return false;
-    if (previous.hash !== this.previousHash) return false;
-    if (this.hash !== this.calculateHash()) return false;
+    if (previous.index + 1 !== this.index) return false
+    if (this.getDataHash() !== this.hashData()) return false
+    if (previous.hash !== this.getPreviousHash()) return false
+    if (this.hash !== this.hashHeader()) return false
+    if (!this.satisfiesDifficulty()) return false
 
-    return true;
-  };
+    return true
+  }
 }
